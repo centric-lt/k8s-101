@@ -17,5 +17,5 @@ const loopFetch = () => {
         updatePODInfo()
     }, 10 * 1000)
 };
-
+updatePODInfo();
 loopFetch();

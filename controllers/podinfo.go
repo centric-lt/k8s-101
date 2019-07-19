@@ -17,16 +17,20 @@ type podinfosrvc struct {
 // NewPodinfo returns the podinfo service implementation.
 func NewPodinfo(logger *log.Logger) podinfo.Service {
 	return &podinfosrvc{
-		kubeClient: nil, //kubernetes.NewKubernetesClient(),
+		kubeClient: kubernetes.NewKubernetesClient(logger),
 		logger:     logger,
 	}
 }
 
 // Pod implements pod.
 func (s *podinfosrvc) Get(ctx context.Context) (*podinfo.Podinforesult, error) {
-	res := &podinfo.Podinforesult{}
-	s.logger.Print("podinfo.pod")
-	res.Hostname = "asdasd"
-	res.IP = "10.10.0.55"
-	return res, nil
+	s.logger.Print("requesting current POD info")
+	info, err := s.kubeClient.GetCurrentPodInfo()
+	if info != nil {
+		return &podinfo.Podinforesult{
+			Hostname: info.Hostname,
+			IP:       info.Ip,
+		}, nil
+	}
+	return nil, err
 }

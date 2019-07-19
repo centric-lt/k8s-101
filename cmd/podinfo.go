@@ -49,7 +49,7 @@ func server(debug bool) {
 	var wg sync.WaitGroup
 	ctx, cancel := context.WithCancel(context.Background())
 
-	u, err := url.Parse("http://localhost:8080")
+	u, err := url.Parse("http://0.0.0.0:8080")
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "invalid URL: %s", err.Error())
 		os.Exit(1)
