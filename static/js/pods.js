@@ -13,13 +13,15 @@ const updatePODInfo = async () => {
         pod = {hostname: "---"}
     }
     let elem = document.querySelector('#pod-hostname');
-    elem.parentElement.classList.remove('bounceIn');
-    elem.parentElement.classList.remove('animated');
-    setTimeout(() => {
-        elem.parentElement.classList.add('animated');
-        elem.parentElement.classList.add('bounceIn');
-        elem.textContent = pod.hostname;
-    }, 20);
+    if (elem.textContent !== pod.hostname) {
+        elem.parentElement.classList.remove('bounceIn');
+        elem.parentElement.classList.remove('animated');
+        setTimeout(() => {
+            elem.parentElement.classList.add('animated');
+            elem.parentElement.classList.add('bounceIn');
+            elem.textContent = pod.hostname;
+        }, 20);
+    }
 };
 
 const runProgress = (totalTime) => {
