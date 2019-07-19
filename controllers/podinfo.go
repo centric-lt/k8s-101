@@ -4,6 +4,7 @@ import (
 	"context"
 	"github.com/centric-lt/k8s-101/gen/podinfo"
 	"github.com/centric-lt/k8s-101/internal/kubernetes"
+	"github.com/centric-lt/k8s-101/internal/utils"
 	"log"
 )
 
@@ -17,7 +18,7 @@ type podinfosrvc struct {
 // NewPodinfo returns the podinfo service implementation.
 func NewPodinfo(logger *log.Logger) podinfo.Service {
 	return &podinfosrvc{
-		kubeClient: kubernetes.NewKubernetesClient(logger),
+		kubeClient: nil, //kubernetes.NewKubernetesClient(logger),
 		logger:     logger,
 	}
 }
@@ -25,12 +26,16 @@ func NewPodinfo(logger *log.Logger) podinfo.Service {
 // Pod implements pod.
 func (s *podinfosrvc) Get(ctx context.Context) (*podinfo.Podinforesult, error) {
 	s.logger.Print("requesting current POD info")
-	info, err := s.kubeClient.GetCurrentPodInfo()
-	if info != nil {
-		return &podinfo.Podinforesult{
-			Hostname: info.Hostname,
-			IP:       info.Ip,
-		}, nil
-	}
-	return nil, err
+	//info, err := s.kubeClient.GetCurrentPodInfo()
+	//if info != nil {
+	//	return &podinfo.Podinforesult{
+	//		Hostname: info.Hostname,
+	//		IP:       info.Ip,
+	//	}, nil
+	//}
+	//return nil, err
+	return &podinfo.Podinforesult{
+		IP:       "1.2.3.4",
+		Hostname: utils.RandStringRunes(15),
+	}, nil
 }
