@@ -42,9 +42,9 @@ const runProgress = (totalTime) => {
 const loopFetch = () => {
     let interval = 10 * 1000;
     setInterval(() => {
-        updatePODInfo()
+        updatePODInfo();
     }, interval);
-    runProgress(interval)
+    runProgress(interval);
 };
 updatePODInfo();
 loopFetch();
