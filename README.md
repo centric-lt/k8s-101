@@ -1,2 +1,2 @@
 # k8s-101
-Kubernetes 101 application
+A Kubernetes-native application displaying pod hostname.
