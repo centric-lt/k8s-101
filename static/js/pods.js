@@ -1,4 +1,4 @@
-const fetchPODInfo =  async () => {
+const fetchPODInfo = async () => {
     try {
         let res = await fetch('/pod');
         return await res.json();
@@ -10,12 +10,12 @@ const fetchPODInfo =  async () => {
 const updatePODInfo = async () => {
     let pod = await fetchPODInfo();
     if (!pod) {
-        pod = { hostname: "---"}
+        pod = {hostname: "---"}
     }
     let elem = document.querySelector('#pod-hostname');
     elem.parentElement.classList.remove('bounceIn');
     elem.parentElement.classList.remove('animated');
-    setTimeout(()=>{
+    setTimeout(() => {
         elem.parentElement.classList.add('animated');
         elem.parentElement.classList.add('bounceIn');
         elem.textContent = pod.hostname;
@@ -26,9 +26,9 @@ const runProgress = (totalTime) => {
     let target = totalTime; // assume ms
     let incr = 15; //ms
     let current = 0;
-    return setInterval(()=>{
+    return setInterval(() => {
         current += incr;
-        if (current > target){
+        if (current > target) {
             current = 0;
         }
         let percentage = (current * 100) / target;
@@ -39,7 +39,7 @@ const runProgress = (totalTime) => {
 
 const loopFetch = () => {
     let interval = 10 * 1000;
-    setInterval(()=>{
+    setInterval(() => {
         updatePODInfo()
     }, interval);
     runProgress(interval)
